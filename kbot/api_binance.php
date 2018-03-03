@@ -145,9 +145,6 @@ function binance_query($path, $method, array $req = array()) {
 		exit;
 	}
 
-	//print $res;
-	//exit;
-
 	$dec = json_decode($res, true);
 	if (!$dec) {
 		print "{\"success\":0}";
