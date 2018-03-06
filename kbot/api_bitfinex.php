@@ -287,7 +287,7 @@ if ($method == 'getPrices') {
 	if(isset($_POST['strategy'])) { $strategy = $_POST['strategy']; } elseif(isset($_GET['strategy'])) { $strategy = $_GET['strategy']; } else { $strategy = 0; }
 	$strategy = htmlspecialchars(strip_tags(trim($strategy)));
 
-	$link = "http://www.funnymay.com/api/wex.php?key=$key&pair=$pair&strategy=$strategy";
+	$link = "http://www.funnymay.com/api/bitfinex.php?key=$key&pair=$pair&strategy=$strategy";
 	$fcontents = implode ('', file ($link));
 
 	echo $fcontents;
