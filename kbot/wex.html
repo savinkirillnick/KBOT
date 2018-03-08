@@ -346,7 +346,7 @@ var pair = _g["pairs"][top.document.runBot.pair.value];
 var key = _g["set"]["key"];
 var secret = _g["set"]["secret"];
 var since = parseInt(new Date().getTime()/1000)-86400;
-var orderAble = parseInt(new Date().getTime()/1000)-_g["set"]["stepTime"];
+var orderAble = parseInt(new Date().getTime()/1000)-_g["set"]["orderLife"]*60;
 var v = (pair).split('_');
 var aroundPrice = _g["rules"]["pairs"][pair]["aroundPrice"];
 var aroundQty = _g["rules"]["pairs"][pair]["aroundQty"];
@@ -377,6 +377,7 @@ req.send();
 				}
 			}
 		_g["lastOrderPrice"] = lastPrice;
+		console.log(lastPrice);
 		_g["lastOrderType"] = lastType;
 		}
 	  }
