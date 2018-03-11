@@ -995,7 +995,7 @@ if (key && secret) {
 				} else {
 					//buy
 					if (_g["buyControl"] == 1 && top.document.runBot.buyOption.value == 1) {
-						sendOrder("BUY")
+						sendOrder("BUY");
 					} else if (_g["sellControl"] == 1 && top.document.runBot.sellOption.value == 1) {
 						sendOrder("SELL");
 					}
