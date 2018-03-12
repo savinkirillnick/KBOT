@@ -370,7 +370,7 @@ req.send();
 		document.getElementById('history').innerHTML = "";
 		if (brokenString.success == 1) {
 			for (var i=0; i< brokenString["trades"].length; i++) {
-				document.getElementById('history').innerHTML = "<div style=\"white-space: nowrap;\">"+brokenString["trades"][i]["type"].toUpperCase()+" "+parseFloat(brokenString["trades"][i]["qty"]).toFixed(aroundQty)+" "+v[0].toUpperCase()+" @ "+parseFloat(brokenString["trades"][i]["price"]).toFixed(aroundPrice)+" "+v[1].toUpperCase()+"</div>" + document.getElementById('history').innerHTML;
+				document.getElementById('history').innerHTML += "<div style=\"white-space: nowrap;\">"+brokenString["trades"][i]["type"].toUpperCase()+" "+parseFloat(brokenString["trades"][i]["qty"]).toFixed(aroundQty)+" "+v[0].toUpperCase()+" @ "+parseFloat(brokenString["trades"][i]["price"]).toFixed(aroundPrice)+" "+v[1].toUpperCase()+"</div>";
 				if (parseInt(brokenString["trades"][i]["time"]) > orderAble) {
 					lastPrice = brokenString["trades"][i]["price"];
 					lastType = brokenString["trades"][i]["type"];
