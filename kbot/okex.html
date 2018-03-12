@@ -10,14 +10,14 @@
   gtag('config', 'UA-47078483-4');
 </script>
 <title>
-Poloniex K-BOT v0.1 u.1
+OKEx K-BOT v0.1 u.1
 </title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<meta name="description" content="Bitcoin poloniex.com K-Bot" />
+<meta name="description" content="Bitcoin okex.com K-Bot" />
 <meta property="keywords" content="" />
-<meta property="og:description" content="Bitcoin poloniex.com K-Bot" />
+<meta property="og:description" content="Bitcoin okex.com K-Bot" />
 <meta property="og:image" content="http://funnymay.com/images/thumb.jpg" />
-<meta property="og:title" content="Poloniex K-BOT v0.1" />
+<meta property="og:title" content="OKEx K-BOT v0.1" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="http://funnymay.com/" />
   <style type="text/css">
@@ -177,7 +177,7 @@ function showPop() {
 
 function saveSettings () {
 
-	deleteCookie('poloniex_set_'+top.document.runBot.botSet.value);
+	deleteCookie('okex_set_'+top.document.runBot.botSet.value);
 
 	var date = new Date;
 	date.setDate( date.getDate() + 365 );
@@ -199,13 +199,13 @@ function saveSettings () {
 	_g["set"]["orderLife"] = parseInt(top.document.runBot.orderLife.value);
 
 	var encryptedString = CryptoJS.AES.encrypt(cookieString, top.document.runBot.password.value);
-	setCookie('poloniex_set_'+top.document.runBot.botSet.value, encryptedString.toString(), { expires: date.toUTCString() });
+	setCookie('okex_set_'+top.document.runBot.botSet.value, encryptedString.toString(), { expires: date.toUTCString() });
 	log("Settings Set_"+top.document.runBot.botSet.value+" saved.");
 }
 
 function loadSettings () {
 
-	var settingsString = getCookie('poloniex_set_'+top.document.runBot.botSet.value);
+	var settingsString = getCookie('okex_set_'+top.document.runBot.botSet.value);
 	var decryptedString = CryptoJS.AES.decrypt(settingsString, top.document.runBot.password.value);
 
 	if (decryptedString != ""){
@@ -249,7 +249,7 @@ function loadSettings () {
 
 function getRules() {
 
-var url = ""+_g["host"]+"/api_poloniex.php?method=getRules";
+var url = ""+_g["host"]+"/api_okex.php?method=getRules";
 
 var req = getXMLHTTP();
     if (!req) {
@@ -303,7 +303,7 @@ var v = pair.split('_');
 var key = _g["set"]["key"];
 var secret = _g["set"]["secret"];
 
-var url = ""+_g["host"]+"/api_poloniex.php?method=getBalances&key="+key+"&secret="+secret;
+var url = ""+_g["host"]+"/api_okex.php?method=getBalances&key="+key+"&secret="+secret;
 
 var req = getXMLHTTP();
     if (!req) {
@@ -351,7 +351,7 @@ var v = (pair).split('_');
 var aroundPrice = _g["rules"]["pairs"][pair]["aroundPrice"];
 var aroundQty = _g["rules"]["pairs"][pair]["aroundQty"];
 
-var url = ""+_g["host"]+"/api_poloniex.php?method=getTrades&key="+key+"&secret="+secret+"&pair="+pair+"&since="+since;
+var url = ""+_g["host"]+"/api_okex.php?method=getTrades&key="+key+"&secret="+secret+"&pair="+pair+"&since="+since;
 
 var req = getXMLHTTP();
     if (!req) {
@@ -396,7 +396,7 @@ var v = pair.split('_');
 var key = _g["set"]["key"];
 var secret = _g["set"]["secret"];
 
-var url = ""+_g["host"]+"/api_poloniex.php?method=getOrders&key="+key+"&secret="+secret+"&pair="+pair;
+var url = ""+_g["host"]+"/api_okex.php?method=getOrders&key="+key+"&secret="+secret+"&pair="+pair;
 
 var req = getXMLHTTP();
     if (!req) {
@@ -472,7 +472,7 @@ var aroundPrice = _g["rules"]["pairs"][pair]["aroundPrice"];
 var aroundQty = _g["rules"]["pairs"][pair]["aroundQty"];
 var strategy = _g["set"]["strategy"];
 
-var url = _g["host"]+"/api_poloniex.php?method=getPrices&key="+key+"&pair="+pair+"&strategy="+strategy;
+var url = _g["host"]+"/api_okex.php?method=getPrices&key="+key+"&pair="+pair+"&strategy="+strategy;
 
     var req = getXMLHTTP();
     if (!req) {
@@ -720,7 +720,9 @@ function cancelOrder(orderId) {
 var key = _g["set"]["key"];
 var secret = _g["set"]["secret"];
 
-var url = ""+_g["host"]+"/api_poloniex.php?method=cancelOrder&key="+key+"&secret="+secret+"&id="+orderId;
+var pair = _g["pairs"][top.document.runBot.pair.value];
+
+var url = ""+_g["host"]+"/api_okex.php?method=cancelOrder&pair="+pair+"&key="+key+"&secret="+secret+"&id="+orderId;
 
 var req = getXMLHTTP();
     if (!req) {
@@ -808,7 +810,7 @@ if (type == "BUY") {
 	  vacans--;
 	}
   }
-	url = ""+_g["host"]+"/api_poloniex.php?method=sendOrder&key="+key+"&secret="+secret+"&pair="+pair+"&type=buy&qty="+buyQty+"&price="+buyPriceFix;
+	url = ""+_g["host"]+"/api_okex.php?method=sendOrder&key="+key+"&secret="+secret+"&pair="+pair+"&type=buy&qty="+buyQty+"&price="+buyPriceFix;
 }
 
 if (type == "SELL") {
@@ -837,7 +839,7 @@ if (type == "SELL") {
 	  vacans--;
 	}
   }
-	url = ""+_g["host"]+"/api_poloniex.php?method=sendOrder&key="+key+"&secret="+secret+"&pair="+pair+"&type=sell&qty="+sellQty+"&price="+sellPriceFix;
+	url = ""+_g["host"]+"/api_okex.php?method=sendOrder&key="+key+"&secret="+secret+"&pair="+pair+"&type=sell&qty="+sellQty+"&price="+sellPriceFix;
 }
 
 var req = getXMLHTTP();
@@ -914,9 +916,7 @@ function sendSellOrder(){
 
 function getChart () {
 
-var symbol = _g["symbols"][top.document.runBot.pair.value];
-
-var url = "https://s.tradingview.com/widgetembed/?symbol=POLONIEX%3A"+symbol+"&interval=30&whitelabel=1&symboledit=1&saveimage=1&toolbarbg=131722&studies=%5B%5D&hideideas=1&theme=Dark&style=1&timezone=Europe%2FLondon&withdateranges=1&studies_overrides=%7B%7D&overrides=%7B%7D&enabled_features=%5B%5D&disabled_features=%5B%5D&locale=en&utm_source=poloniex.com&utm_medium=widget&utm_campaign=chart&utm_term=POLONIEX%3A"+symbol;
+var url = ""+_g["host"]+"/api_okex.php?method=getChart&pair="+_g["pairs"][top.document.runBot.pair.value];
 
 document.getElementById('chart_div').innerHTML = "<iframe src='"+url+"' width='600' height='400' align='left' frameBorder='0' scrolling='no'>"
 + "Forget about chart!"
