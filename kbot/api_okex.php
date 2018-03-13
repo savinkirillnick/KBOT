@@ -1304,12 +1304,14 @@ if ($method == 'getTrades'){
 			$trades .= "\"success\":1,";
 			$trades .= "\"trades\":[";
 				for ($i = 0; $i < $count; $i++) {
-					$trades .= "{\"pair\":\"".$pair."\",";
-					$trades .= "\"type\":\"".$result['orders'][$i]['type']."\",";
+					if ($result['orders'][$i]['status'] == 2) {
+						$trades .= "{\"pair\":\"".$pair."\",";
+						$trades .= "\"type\":\"".$result['orders'][$i]['type']."\",";
 
-					$trades .= "\"qty\":".$result['orders'][$i]['amount'].",";
-					$trades .= "\"price\":".$result['orders'][$i]['price'].",";
-					$trades .= "\"time\":".round($result['orders'][$i]['create_date']/1000,0)."},";
+						$trades .= "\"qty\":".$result['orders'][$i]['amount'].",";
+						$trades .= "\"price\":".$result['orders'][$i]['price'].",";
+						$trades .= "\"time\":".round($result['orders'][$i]['create_date']/1000,0)."},";
+					}
 				}
 			$trades = substr($trades, 0, -1) . "]}";
 		} else {
