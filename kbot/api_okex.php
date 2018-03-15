@@ -7,6 +7,7 @@ if(isset($_POST['method'])) { $method = $_POST['method']; } elseif(isset($_GET['
 $method = htmlspecialchars(strip_tags(trim($method)));
 if(isset($_POST['key'])) { $key = $_POST['key']; } elseif(isset($_GET['key'])) { $key = $_GET['key']; } else { $key = 0; }
 $key = htmlspecialchars(strip_tags(trim($key)));
+
 //---------------------------- get Rules
 
 if ($method == 'getRules') {
@@ -1458,19 +1459,8 @@ if ($method == 'getChart') {
 	$limit = 48;
 
 	$link = "https://www.okex.com/api/v1/kline.do?symbol=$pair&type=$interval&size=$limit";
-
 	$fcontents = implode ('', file ($link));
 	$fcontents = json_decode($fcontents, true);
-
-	$i=0;
-
-	while ($fcontents[$i]) {
-		$open[$i] = (float)$fcontents[$i][1];
-		$low[$i] = (float)$fcontents[$i][3];
-		$high[$i] = (float)$fcontents[$i][2];
-		$close[$i] = (float)$fcontents[$i][4];
-		$i++;
-	}
 
 	$i=0;
 	$j=0;
