@@ -1,4 +1,4 @@
-# EN KBOT
+# [EN] KBOT
 #### Automatic trading system for the crypto currency exchange wex.nz
 
 ## Installation:
@@ -21,7 +21,7 @@ kbot/aex.js
 kbot/cookies.html 
 kbot/xhr.js
 ```
-# RU JBOT
+# [RU] KBOT
 #### Автоматическая торговая система для биржи крипто-валют wex.nz
 
 ## Установка:
