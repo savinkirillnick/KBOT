@@ -1,5 +1,5 @@
 # [EN] KBOT
-#### Automatic trading system for the crypto currency exchange wex.nz
+#### Automatic trading system for the crypto currency
 
 ## Installation:
 
@@ -27,7 +27,7 @@ api/poloniex_api.php
 For launch bot type in adress bar `http://127.0.0.1/products/kbot`
 
 # [RU] KBOT
-#### Автоматическая торговая система для биржи крипто-валют wex.nz
+#### Автоматическая торговая система для крипто-валют
 
 ## Установка:
 
