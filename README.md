@@ -11,16 +11,21 @@ http://127.0.0.1/
 ```
 then extract the contents to the root folder:
 ```
-kbot/api_wex.php
-kbot/wex.html
-kbot/api_binance.php
-kbot/binance.html
-kbot/api_poloniex.php
-kbot/poloniex.html
-kbot/aex.js 
-kbot/cookies.html 
-kbot/xhr.js
+products/kbot/binance.html
+products/kbot/bitfinex.html
+products/kbot/huobi.html
+products/kbot/index.html
+products/kbot/poloniex.html
+js/aex.js 
+js/cookies.html 
+js/xhr.js
+api/binance_api.php
+api/bitfinex_api.php
+api/huobi_api.php
+api/poloniex_api.php
 ```
+For launch bot type in adress bar `http://127.0.0.1/products/kbot`
+
 # [RU] KBOT
 #### Автоматическая торговая система для биржи крипто-валют wex.nz
 
@@ -34,13 +39,17 @@ http://127.0.0.1/
 ```
 то распакуйте содержимое в корневую папку:
 ```
-kbot/api_wex.php
-kbot/wex.html
-kbot/api_binance.php
-kbot/binance.html
-kbot/api_poloniex.php
-kbot/poloniex.html
-kbot/aex.js 
-kbot/cookies.html 
-kbot/xhr.js
+products/kbot/binance.html
+products/kbot/bitfinex.html
+products/kbot/huobi.html
+products/kbot/index.html
+products/kbot/poloniex.html
+js/aex.js 
+js/cookies.html 
+js/xhr.js
+api/binance_api.php
+api/bitfinex_api.php
+api/huobi_api.php
+api/poloniex_api.php
 ```
+Для запуска бота набирайте в адресной строке `http://127.0.0.1/products/kbot`
