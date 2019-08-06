@@ -10,14 +10,14 @@
   gtag('config', 'UA-47078483-4');
 </script>
 <title>
-Huobi K-BOT v0.2 u.1
+Huobi K-BOT v0.3 u.1
 </title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="description" content="Bitcoin huobi.pro K-Bot" />
 <meta property="keywords" content="" />
 <meta property="og:description" content="Bitcoin huobi.pro K-Bot" />
 <meta property="og:image" content="http://funnymay.com/images/thumb.jpg" />
-<meta property="og:title" content="Huobi K-BOT v0.2" />
+<meta property="og:title" content="Huobi K-BOT v0.3" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="http://funnymay.com/" />
   <style type="text/css">
@@ -540,11 +540,20 @@ var minSum = parseFloat(_g["rules"]["pairs"][pair]["minSum"]);
 var maxSum = parseFloat(_g["rules"]["pairs"][pair]["maxSum"]);
 var orderQty = parseFloat(top.document.runBot.buyQty.value);
 var orderPrice = parseFloat(top.document.runBot.buyPrice.value);
+var maxBuyPrice = parseFloat(top.document.runBot.maxBuyPrice.value);
 var lastOrderType = (_g["lastOrderType"]).toUpperCase();
 var activeDepo = parseFloat(_g["activeDepo"]);
 var maxDepo = parseFloat(_g["set"]["maxDepo"]);
 var pointDepo = maxDepo - orderQty;
 var counter = 0;
+
+	if (maxBuyPrice > 0) {
+		if (orderPrice < maxBuyPrice) {
+			counter++;
+		}
+	} else {
+		counter++;
+	}
 
 	if (maxDepo > 0) {
 		if (activeDepo < pointDepo) {
@@ -606,7 +615,7 @@ var counter = 0;
 		counter++;
 	}
 
-	if (counter == 8) {
+	if (counter == 9) {
 		top.document.runBot.buyQty.style.background = '#1c202d';
 		top.document.runBot.buyPrice.style.background = '#1c202d';
 		_g["buyControl"] = 1;
@@ -633,11 +642,20 @@ var minSum = parseFloat(_g["rules"]["pairs"][pair]["minSum"]);
 var maxSum = parseFloat(_g["rules"]["pairs"][pair]["maxSum"]);
 var orderQty = parseFloat(top.document.runBot.sellQty.value);
 var orderPrice = parseFloat(top.document.runBot.sellPrice.value);
+var minSellPrice = parseFloat(top.document.runBot.minSellPrice.value);
 var lastOrderType = (_g["lastOrderType"]).toUpperCase();
 var activeDepo = parseFloat(_g["activeDepo"]);
 var maxDepo = parseFloat(_g["set"]["maxDepo"]);
 var pointDepo = maxDepo - orderQty;
 var counter = 0;
+
+	if (minSellPrice > 0) {
+		if (orderPrice > minSellPrice) {
+			counter++;
+		}
+	} else {
+		counter++;
+	}
 
 	if (maxDepo > 0) {
 		if (activeDepo < pointDepo) {
@@ -699,7 +717,7 @@ var counter = 0;
 		counter++;
 	}
 
-	if (counter == 8) {
+	if (counter == 9) {
 		top.document.runBot.sellQty.style.background = '#1c202d';
 		top.document.runBot.sellPrice.style.background = '#1c202d';
 		_g["sellControl"] = 1;
@@ -1217,7 +1235,9 @@ function initBot() {
 	<select name='buyOption' onChange='controlBuyPrice()' style='width:80px;'>
 	  <option value='0' selected>Disallow</option>
 	  <option value='1'>Allow</option>
-	</select><br><br>
+	</select><br>
+	Max Buy Price<br>
+	<input type='number' step='any' name='maxBuyPrice' placeholder='price' value='0' style='width:80px;'><br><br>
 	<input type='button' name='buyButton' value='BUY' onClick='sendBuyOrder();' style='width: 95px; height: 30px; background: #53b987; color: #f1f9f5; font-weight: bold;'>
 	</td><td>SELL<br>
 	<input type='number' step='any' name='sellQty' placeholder='amount' style='width:80px;' onChange='controlSellPrice()'><br>
@@ -1225,7 +1245,9 @@ function initBot() {
 	<select name='sellOption' onChange='controlSellPrice()' style='width:80px;'>
 	  <option value='0' selected>Disallow</option>
 	  <option value='1'>Allow</option>
-	</select><br><br>
+	</select><br>
+	Min Sell Price<br>
+	<input type='number' step='any' name='minSellPrice' placeholder='price' value='0' style='width:80px;'><br><br>
 	<input type='button' name='sellButton' value='SELL' onClick='sendSellOrder();' style='width: 95px; height: 30px; background: #eb4d5c; color: #f1f9f5; font-weight: bold;'>
 	</td></tr>
 	</table>
