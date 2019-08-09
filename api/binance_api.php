@@ -46,7 +46,7 @@ if ($method == 'getRules') {
 	    array_multisort($data_pair, SORT_NUMERIC, $fcontents['symbols']);
 
 	for ($i = 0; $i < $count; $i++) {
-		if ($fcontents['symbols'][$i]['baseAsset'] != 123) {
+		if ($fcontents['symbols'][$i]['baseAsset'] != 123 && $fcontents['symbols'][$i]['status'] != "BREAK") {
 			$rules .= "\"".strtolower($fcontents['symbols'][$i]['baseAsset'])."_".strtolower($fcontents['symbols'][$i]['quoteAsset'])."\":{";
 			$symbol = $fcontents['symbols'][$i]['symbol'];
 			$rules .= "\"symbol\":\"$symbol\",";
@@ -250,6 +250,46 @@ if ($method == 'getOrders') {
 
 }
 
+//---------------------------- get Order Book
+
+if ($method == 'getDepth') {
+
+	if(isset($_POST['pair'])) { $pair = $_POST['pair']; } elseif(isset($_GET['pair'])) { $pair = $_GET['pair']; } else { $pair = 0; }
+	$pair = htmlspecialchars(strip_tags(trim($pair)));
+	if(isset($_POST['depth'])) { $depth = $_POST['depth']; } elseif(isset($_GET['depth'])) { $depth = $_GET['depth']; } else { $depth = 0; }
+	$depth = htmlspecialchars(strip_tags(trim($depth)));
+
+	$v = explode('_',$pair);
+	$symbol = strtoupper($v[0].$v[1]);
+
+	$link = "https://api.binance.com/api/v1/depth?symbol=$symbol&limit=$depth";
+	$fcontents = implode ('', file ($link));
+	$fcontents = json_decode($fcontents, true);
+
+	$asks = $fcontents['asks'];
+	$bids = $fcontents['bids'];
+
+	$depth = "{";
+	$depth .= "\"success\":1,";
+	$depth .= "\"asks\":[";
+
+	$count = count($asks);
+	for ($i=0; $i < $count;$i++) {
+		$depth .= "[".$asks[$i][0].",".$asks[$i][1]."],";
+	}
+	$depth = substr($depth, 0, -1);
+	$depth .= "],\"bids\":[";
+	$count = count($bids);
+	for ($i=0; $i < $count;$i++) {
+		$depth .= "[".$bids[$i][0].",".$bids[$i][1]."],";
+	}
+	$depth = substr($depth, 0, -1);
+	$depth .= "]}";
+
+	echo $depth;
+	exit;
+}
+
 //---------------------------- cancel Order
 
 if ($method == 'cancelOrder') {
@@ -318,6 +358,35 @@ if ($method == 'sendOrder') {
 }
 
 //---------------------------- get Prices
+
+if ($method == 'getPrices') {
+
+	$link = "https://api.binance.com/api/v1/exchangeInfo";
+	$fcontents = implode ('', file ($link));
+	$rules = json_decode($fcontents, true);
+
+	$link = "https://api.binance.com/api/v3/ticker/price";
+	$fcontents = implode ('', file ($link));
+	$prices = json_decode($fcontents, true);
+
+	$count = count($prices);
+	if ($count > 0) {
+		$price = "{";
+		$price .= "\"status\":1,";
+		$price .= "\"data\":{";
+		for ($i = 0; $i < $count; $i++) {
+			$price .= "\"".strtolower($rules['symbols'][$i]['baseAsset'])."_".strtolower($rules['symbols'][$i]['quoteAsset'])."\":".$prices[$i]['price'].",";
+		}
+		$price = substr($price, 0, -1) . "}}";
+	} else {
+		$price = "{\"status\":0}";
+	}
+
+	echo $price;
+	exit;
+}
+
+//---------------------------- get Strategy Prices
 
 if ($method == 'getStrategyPrices') {
 
