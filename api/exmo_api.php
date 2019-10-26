@@ -150,7 +150,7 @@ if ($method == 'getTrades'){
 
 	$symbol = strtoupper($pair);
 
-	$result = btce_query('user_trades', array("pair" => "$symbol", "lomit" => 10));
+	$result = exmo_query('user_trades', array("pair" => "$symbol", "lomit" => 10));
 	$count = count($result);
 
 		if ($count) {
@@ -214,6 +214,45 @@ if ($method == 'getOrders') {
 	exit;
 
 
+}
+
+//---------------------------- get Order Book
+
+if ($method == 'getDepth') {
+
+	if(isset($_POST['pair'])) { $pair = $_POST['pair']; } elseif(isset($_GET['pair'])) { $pair = $_GET['pair']; } else { $pair = 0; }
+	$pair = htmlspecialchars(strip_tags(trim($pair)));
+	if(isset($_POST['depth'])) { $depth = $_POST['depth']; } elseif(isset($_GET['depth'])) { $depth = $_GET['depth']; } else { $depth = 0; }
+	$depth = htmlspecialchars(strip_tags(trim($depth)));
+
+	$pair = strtoupper($pair);
+
+	$link = "https://api.exmo.com/v1/order_book/?pair=$pair&limit=$depth";
+	$fcontents = implode ('', file ($link));
+	$fcontents = json_decode($fcontents, true);
+
+	$asks = $fcontents[$pair]['ask'];
+	$bids = $fcontents[$pair]['bid'];
+
+	$depth = "{";
+	$depth .= "\"success\":1,";
+	$depth .= "\"asks\":[";
+
+	$count = count($asks);
+	for ($i=0; $i < $count;$i++) {
+		$depth .= "[".$asks[$i][0].",".$asks[$i][1]."],";
+	}
+	$depth = substr($depth, 0, -1);
+	$depth .= "],\"bids\":[";
+	$count = count($bids);
+	for ($i=0; $i < $count;$i++) {
+		$depth .= "[".$bids[$i][0].",".$bids[$i][1]."],";
+	}
+	$depth = substr($depth, 0, -1);
+	$depth .= "]}";
+
+	echo $depth;
+	exit;
 }
 
 //---------------------------- cancel Order
